@@ -249,7 +249,8 @@
             "4tronix/Theta",
             "bsiever/microbit-pxt-blehid",
             "DFRobot/pxt-DFRobot_Environment_Science",
-            "ekkai/aicococam"
+            "ekkai/aicococam",
+            "DFRobot/pxt-DFRobot_IoT_Cloud_Kit"
         ],
         "preferredRepos": [
             "Microsoft/pxt-neopixel",
