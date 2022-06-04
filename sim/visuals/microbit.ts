@@ -17,6 +17,9 @@ namespace pxsim.visuals {
         .sim-button {
             pointer-events: none;
         }
+        .sim-head .sim-button {
+            pointer-events: unset;
+        }
         .sim-board, .sim-display, sim-button {
             fill: #111;
         }
@@ -991,7 +994,7 @@ path.sim-board {
             // head
             this.head = <SVGGElement>svg.child(this.g, "g", { class: "sim-head" });
             svg.child(this.head, "circle", { cx: 258, cy: 75, r: 100, fill: "transparent" })
-            this.headParts = <SVGGElement>svg.child(this.head, "g", { class: "sim-button-outer sim-button-group" });
+            this.headParts = <SVGGElement>svg.child(this.head, "g", {});
             this.heads = []
             // background
             this.heads.push(svg.path(this.headParts, "sim-button", "M 269.9 50.2 L 269.9 50.2 l -39.5 0 v 0 c -14.1 0.1 -24.6 10.7 -24.6 24.8 c 0 13.9 10.4 24.4 24.3 24.7 v 0 h 39.6 c 14.2 0 24.8 -10.6 24.8 -24.7 C 294.5 61 284 50.3 269.9 50.2 M 269.7 89.2"));
@@ -1115,6 +1118,7 @@ path.sim-board {
             const headTitle = pxsim.localization.lf("logo touch (micro:bit v2 needed)")
             accessibility.makeFocusable(this.headParts);
             accessibility.setAria(this.headParts, "button", headTitle);
+            this.headParts.setAttribute("class", "sim-button-outer sim-button-group")
 
             // microphone led
             const microphoneTitle = pxsim.localization.lf("microphone (micro:bit v2 needed)")
@@ -1324,7 +1328,7 @@ path.sim-board {
 
         private attachABEvents() {
             const bpState = this.board.buttonPairState;
-            const stateButtons: Button[] = [bpState.aBtn, bpState.bBtn, this.board.logoTouch];
+            const stateButtons: Button[] = (this.domHardwareVersion > 1) ? [bpState.aBtn, bpState.bBtn, this.board.logoTouch] : [bpState.aBtn, bpState.bBtn];
             const elButtonOuters = this.buttonsOuter.slice(0, 2).concat(this.headParts);
             const elButtons = this.buttons.slice(0, 2).concat(this.headParts);
 
